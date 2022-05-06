@@ -1,0 +1,63 @@
+<html>
+   <head>
+      <style>
+         body, html { border: 0; margin: 0; padding: 0}
+         #map { height: 100vh; width: 100vw; }
+      </style>
+      <!-- <script src="js/three.min.js"></script> -->
+      <!-- <script src="https://unpkg.com/three/build/three.min.js"></script> -->
+      <!-- <script src="https://unpkg.com/@here/harp.gl/dist/harp.js"></script> -->
+   </head>
+   <body>
+      <canvas id="map"></canvas>
+      <!-- <script type="module" src="js/index.js"></script> -->
+      <script >
+
+import { GeoCoordinates, mercatorProjection, sphereProjection } from "@here/harp-geoutils";
+import { CopyrightElementHandler, MapView, MapViewEventNames } from "@here/harp-mapview";
+import { VectorTileDataSource } from "@here/harp-vectortile-datasource";
+import { GUI } from "dat.gui";
+
+const canvas = document.getElementById('map');
+const mapView = new harp.MapView({
+   canvas:canvas,
+   theme: "https://unpkg.com/@here/harp-map-theme@latest/resources/berlin_tilezen_base.json",
+   // projection: harp.sphereProjection,
+});
+
+// center the camera to dubai
+mapView.lookAt({
+
+  target: new harp.GeoCoordinates(25.21251, 55.2714711),
+  zoomLevel: 16,
+  tilt: 16,
+});
+
+let heading = 0;
+mapView.addEventListener("", () => {
+  mapView.lookAt({ heading });
+  heading += 0.1;
+});
+mapView.beginAnimation();
+
+const mapControls = new harp.MapControls(mapView);
+// mapControls.maxTiltAngle = 90;
+const ui = new harp.MapControlsUI(mapControls);
+canvas.parentElement.appendChild(ui.domElement);
+// const controls = new GlobeControls(map);
+// controls.enable = true;
+
+
+
+mapView.resize(window.innerWidth, window.innerHeight);
+window.onresize = () => mapView.resize(window.innerWidth, window.innerHeight);
+
+const vectorTileDataSource = new harp.VectorTileDataSource({
+   authenticationCode: 'nkUx7_cDkChlAXpIlSdaBeZxvUyHHIwSHg2F1CPDpWk',
+
+});
+mapView.addDataSource(vectorTileDataSource);
+
+      </script>
+   </body>
+</html>
