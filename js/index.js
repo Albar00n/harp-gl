@@ -10,7 +10,7 @@ const canvas = document.getElementById('map');
 const mapView = new harp.MapView({
    canvas:canvas,
    theme: "https://unpkg.com/@here/harp-map-theme@latest/resources/berlin_tilezen_base.json",
-   projection: harp.sphereProjection,
+   // projection: harp.sphereProjection,
 });
 
 // center the camera to dubai
