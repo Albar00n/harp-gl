@@ -65,9 +65,9 @@ const mapView = new harp.MapView({
 
 // center the camera to New York
 mapView.lookAt({
-  target: new harp.GeoCoordinates(40.70398928, -74.01319808),
-  zoomLevel: 17,
-  tilt: 40,
+	target: new harp.GeoCoordinates(25.197273, 55.2745147),
+	zoomLevel: 17,
+	tilt: 50,
 });
 
 const mapControls = new harp.MapControls(mapView);
